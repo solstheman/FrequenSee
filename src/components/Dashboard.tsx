@@ -27,7 +27,7 @@ const Dashboard = ({ onShowStats }: { onShowStats: (id: string) => void }) => {
         <div style={{ flex: 1, paddingBottom: '80px' }}>
             <header style={{ padding: '24px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h1 style={{ fontSize: '2rem' }}>Tracker</h1>
+                    <h1 style={{ fontSize: '2rem' }}>FrequenSee</h1>
                     <p className="stats-label">Track your life habits</p>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
@@ -47,27 +47,59 @@ const Dashboard = ({ onShowStats }: { onShowStats: (id: string) => void }) => {
             </header>
 
             <div className="tracker-grid">
-                {trackers.map(tracker => {
-                    const trackerLogs = logs.filter(l => l.trackerId === tracker.id);
-                    const stats = calculateStats(tracker, trackerLogs);
-                    const frequencyLabel = stats ? getFrequencyLabel(stats.avgIntervalDays) : `${trackerLogs.length} logs`;
+                {trackers.length > 0 ? (
+                    trackers.map(tracker => {
+                        const trackerLogs = logs.filter(l => l.trackerId === tracker.id);
+                        const stats = calculateStats(tracker, trackerLogs);
+                        const frequencyLabel = stats ? getFrequencyLabel(stats.avgIntervalDays) : `${trackerLogs.length} logs`;
 
-                    return (
-                        <div key={tracker.id} style={{ position: 'relative' }}>
-                            <TrackerCard
-                                tracker={tracker}
-                                onLog={logOccurrence}
-                                frequencyLabel={frequencyLabel}
-                            />
-                            <button
-                                onClick={() => onShowStats(tracker.id)}
-                                style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', width: '24px', height: '24px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
-                            >
-                                <BarChart2 size={14} />
-                            </button>
+                        return (
+                            <div key={tracker.id} style={{ position: 'relative' }}>
+                                <TrackerCard
+                                    tracker={tracker}
+                                    onLog={logOccurrence}
+                                    frequencyLabel={frequencyLabel}
+                                />
+                                <button
+                                    onClick={() => onShowStats(tracker.id)}
+                                    style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', width: '24px', height: '24px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}
+                                >
+                                    <BarChart2 size={14} />
+                                </button>
+                            </div>
+                        );
+                    })
+                ) : (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        style={{ gridColumn: '1 / -1', padding: '60px 20px', textAlign: 'center' }}
+                    >
+                        <div style={{ marginBottom: '24px', opacity: 0.5 }}>
+                            <BarChart2 size={64} style={{ margin: '0 auto' }} />
                         </div>
-                    );
-                })}
+                        <h2 style={{ marginBottom: '12px', fontSize: '1.5rem' }}>No Trackers Yet</h2>
+                        <p className="stats-label" style={{ marginBottom: '32px', maxWidth: '300px', margin: '0 auto 32px' }}>
+                            Start tracking your first habit to see frequency insights and patterns.
+                        </p>
+                        <button
+                            onClick={() => setIsAdding(true)}
+                            className="btn-primary"
+                            style={{
+                                padding: '16px 32px',
+                                fontSize: '1.1rem',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                                border: 'none',
+                                boxShadow: '0 8px 16px rgba(0,0,0,0.3)'
+                            }}
+                        >
+                            <Plus size={24} /> Create First Tracker
+                        </button>
+                    </motion.div>
+                )}
             </div>
 
             <AnimatePresence>

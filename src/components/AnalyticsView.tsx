@@ -99,31 +99,31 @@ const AnalyticsView = ({ tracker, logs, onBack, onDelete }: AnalyticsViewProps) 
                             {format(stats.lastSeen, 'PPP')} at {format(stats.lastSeen, 'p')}
                         </p>
                     </div>
-
-                    <div style={{ marginTop: '24px' }}>
-                        <button
-                            onClick={handleDelete}
-                            style={{
-                                width: '100%',
-                                padding: '16px',
-                                background: 'rgba(239, 68, 68, 0.1)',
-                                border: '1px solid #ef4444',
-                                borderRadius: '12px',
-                                color: '#ef4444',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '8px',
-                                cursor: 'pointer',
-                                fontWeight: 600,
-                                fontSize: '1rem'
-                            }}
-                        >
-                            <Trash2 size={20} /> Delete Tracker
-                        </button>
-                    </div>
                 </div>
             )}
+
+            <div style={{ marginTop: '24px' }}>
+                <button
+                    onClick={handleDelete}
+                    style={{
+                        width: '100%',
+                        padding: '16px',
+                        background: 'rgba(239, 68, 68, 0.1)',
+                        border: '1px solid #ef4444',
+                        borderRadius: '12px',
+                        color: '#ef4444',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        cursor: 'pointer',
+                        fontWeight: 600,
+                        fontSize: '1rem'
+                    }}
+                >
+                    <Trash2 size={20} /> Delete Tracker
+                </button>
+            </div>
 
             <AnimatePresence>
                 {isConfirming && (

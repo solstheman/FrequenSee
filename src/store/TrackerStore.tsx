@@ -40,13 +40,7 @@ export const TrackerProvider = ({ children }: { children: ReactNode }) => {
         if (savedTrackers) {
             setTrackers(JSON.parse(savedTrackers));
         } else {
-            // Default trackers if none exist
-            const defaultTrackers: Tracker[] = [
-                { id: '1', label: 'Coffee', color: '#8B4513', icon: 'Coffee', createdAt: Date.now() },
-                { id: '2', label: 'Workout', color: '#10b981', icon: 'Dumbbell', createdAt: Date.now() },
-            ];
-            setTrackers(defaultTrackers);
-            localStorage.setItem('life-trackers', JSON.stringify(defaultTrackers));
+            setTrackers([]);
         }
 
         if (savedLogs) {
